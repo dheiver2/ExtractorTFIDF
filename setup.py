@@ -91,6 +91,8 @@ class ExtractorTFIDF:
         return df_freq
 
 # Exemplo de uso da classe com entrada do usuário
+from ExtractorTFIDF import ExtractorTFIDF  # Importe sua classe ExtractorTFIDF
+
 if __name__ == "__main__":
     frases = [
         "O céu está azul hoje.",
@@ -110,38 +112,17 @@ if __name__ == "__main__":
         "Filosofia"
     ]
 
-    # Pedir ao usuário para definir o número mínimo de palavras na frase
-    while True:
-        try:
-            min_words = int(input("Digite o número mínimo de palavras na frase para análise: "))
-            break
-        except ValueError:
-            print("Por favor, digite um número inteiro válido.")
+    # Definindo um valor padrão fixo para min_words
+    min_words = 5
 
     extractor = ExtractorTFIDF()
     df_resultado = extractor.extract_tfidf_features(frases, tipos, min_words)
 
-    # Exibindo o DataFrame final com as palavras importantes e suas pontuações TF-IDF
+    # Exibir o DataFrame final com as palavras importantes e suas pontuações TF-IDF
     print("DataFrame com as palavras importantes e suas pontuações TF-IDF:")
     print(df_resultado)
 
-    # Inicializar um DataFrame vazio para armazenar as frequências de todas as palavras importantes
-    df_final = pd.DataFrame()
+    # Aqui você pode continuar com o processamento do DataFrame conforme necessário
 
-    # Contar a frequência das palavras importantes em todas as frases processadas para cada tipo
-    for tipo in df_resultado['Tipo'].unique():
-        df_tipo = df_resultado[df_resultado['Tipo'] == tipo]
-        df_frequencia_palavras = extractor.contar_frequencia_palavras_importantes(df_tipo, tipo)
-        print(f"\nDataFrame com a frequência das palavras importantes para o Tipo '{tipo}':")
-        print(df_frequencia_palavras)
-
-        # Concatenar o DataFrame de frequência ao DataFrame final
-        df_final = pd.concat([df_final, df_frequencia_palavras], ignore_index=True)
-
-    # Exibir o DataFrame final com todas as frequências de palavras importantes para todos os tipos
-    print("\nDataFrame final com a frequência das palavras importantes para todos os tipos:")
-    print(df_final)
-
-df_resultado
 
 df_final
